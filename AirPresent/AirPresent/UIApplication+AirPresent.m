@@ -8,29 +8,29 @@
 
 #import "UIApplication+AirPresent.h"
 #import <QuartzCore/QuartzCore.h>
-#import "AKAirplayManager.h"
+#import "AirPlayaManager.h"
 
-@interface APManager : NSObject <AKAirplayManagerDelegate>
+@interface APManager : NSObject <AirPlayaManagerDelegate>
 {
-	AKAirplayManager *airplay;
+	AirPlayaManager *airplay;
 	NSTimer *runTimer;
 }
 
 + (APManager *) sharedManager;
 
-- (void) start;
-- (void) stop;
+- (void)start;
+- (void)stop;
 
 @end
 
 @implementation UIApplication (AirPresent)
 
-- (void) beginPresentingScreen
+- (void)beginPresentingScreen
 {
 	[[APManager sharedManager] start];
 }
 
-- (void) endPresentingScreen
+- (void)endPresentingScreen
 {
 	[[APManager sharedManager] stop];
 }
@@ -45,7 +45,7 @@
 	[self.layer renderInContext:UIGraphicsGetCurrentContext()];
 	UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	
+
 	return viewImage;
 }
 
@@ -63,26 +63,27 @@ static APManager *instance;
 
 + (APManager *) sharedManager
 {
-	if(!instance)
+	if (!instance)
 	{
 		instance = [[APManager alloc] init];
 	}
-	
+
 	return instance;
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
-- (void) start
+- (void)start
 {
-	if(!airplay)
+	if (!airplay)
 	{
-		airplay = [[AKAirplayManager alloc] init];
+		airplay = [[AirPlayaManager alloc] init];
+        airplay.autoConnect = YES;
 		airplay.delegate = self;
 	}
-	
-	if(!airplay.connectedDevice)
+
+	if (!airplay.connectedDevice)
 	{
 		[airplay findDevices];
 	}
@@ -92,11 +93,11 @@ static APManager *instance;
 	}
 }
 
-- (void) stop
+- (void)stop
 {
 	[airplay.connectedDevice sendStop];
-	
-	if(runTimer)
+
+	if (runTimer)
 	{
 		[runTimer invalidate];
 		[runTimer release];
@@ -107,7 +108,7 @@ static APManager *instance;
 #pragma mark -
 #pragma mark Airplay Delegate
 
-- (void) manager:(AKAirplayManager *)manager didConnectToDevice:(AKDevice *)device
+- (void)manager:(AirPlayaManager *)manager didConnectToDevice:(AirPlayaDevice *)device
 {
 	// Start a timer to send the images
 	runTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendScreen) userInfo:nil repeats:YES] retain];
@@ -116,11 +117,11 @@ static APManager *instance;
 #pragma mark -
 #pragma mark Timer
 
-- (void) sendScreen
+- (void)sendScreen
 {
 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-	if(!window) window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-	
+	if (!window) window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+
 	UIImage *image = [window viewAsImage];
 	[airplay.connectedDevice sendImage:image];
 }

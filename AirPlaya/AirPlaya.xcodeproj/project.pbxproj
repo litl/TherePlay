@@ -1,0 +1,271 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6FB8D61516826AB4002BE005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB8D61416826AB4002BE005 /* Foundation.framework */; };
+		6FB8D64F16828683002BE005 /* AirPlayaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB8D64A16828683002BE005 /* AirPlayaManager.m */; };
+		6FB8D65016828683002BE005 /* AirPlayaDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB8D64C16828683002BE005 /* AirPlayaDevice.m */; };
+		6FB8D65116828683002BE005 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB8D64E16828683002BE005 /* AsyncSocket.m */; };
+		6FB8D654168286F2002BE005 /* AirPlayaManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB8D64916828683002BE005 /* AirPlayaManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FB8D655168286F2002BE005 /* AirPlayaDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB8D64B16828683002BE005 /* AirPlayaDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6FB8D656168286F2002BE005 /* AsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB8D64D16828683002BE005 /* AsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6FB8D60F16826AB4002BE005 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6FB8D61116826AB4002BE005 /* libAirPlaya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirPlaya.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FB8D61416826AB4002BE005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6FB8D61816826AB4002BE005 /* AirPlaya-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AirPlaya-Prefix.pch"; sourceTree = "<group>"; };
+		6FB8D64916828683002BE005 /* AirPlayaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirPlayaManager.h; sourceTree = "<group>"; };
+		6FB8D64A16828683002BE005 /* AirPlayaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirPlayaManager.m; sourceTree = "<group>"; };
+		6FB8D64B16828683002BE005 /* AirPlayaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirPlayaDevice.h; sourceTree = "<group>"; };
+		6FB8D64C16828683002BE005 /* AirPlayaDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirPlayaDevice.m; sourceTree = "<group>"; };
+		6FB8D64D16828683002BE005 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		6FB8D64E16828683002BE005 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6FB8D60E16826AB4002BE005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FB8D61516826AB4002BE005 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6FB8D60616826AB4002BE005 = {
+			isa = PBXGroup;
+			children = (
+				6FB8D61616826AB4002BE005 /* AirPlaya */,
+				6FB8D61316826AB4002BE005 /* Frameworks */,
+				6FB8D61216826AB4002BE005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6FB8D61216826AB4002BE005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FB8D61116826AB4002BE005 /* libAirPlaya.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6FB8D61316826AB4002BE005 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FB8D61416826AB4002BE005 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6FB8D61616826AB4002BE005 /* AirPlaya */ = {
+			isa = PBXGroup;
+			children = (
+				6FB8D64916828683002BE005 /* AirPlayaManager.h */,
+				6FB8D64A16828683002BE005 /* AirPlayaManager.m */,
+				6FB8D64B16828683002BE005 /* AirPlayaDevice.h */,
+				6FB8D64C16828683002BE005 /* AirPlayaDevice.m */,
+				6FB8D64D16828683002BE005 /* AsyncSocket.h */,
+				6FB8D64E16828683002BE005 /* AsyncSocket.m */,
+				6FB8D61716826AB4002BE005 /* Supporting Files */,
+			);
+			path = AirPlaya;
+			sourceTree = "<group>";
+		};
+		6FB8D61716826AB4002BE005 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6FB8D61816826AB4002BE005 /* AirPlaya-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6FB8D653168286D1002BE005 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FB8D654168286F2002BE005 /* AirPlayaManager.h in Headers */,
+				6FB8D655168286F2002BE005 /* AirPlayaDevice.h in Headers */,
+				6FB8D656168286F2002BE005 /* AsyncSocket.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6FB8D61016826AB4002BE005 /* AirPlaya */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FB8D61F16826AB4002BE005 /* Build configuration list for PBXNativeTarget "AirPlaya" */;
+			buildPhases = (
+				6FB8D60D16826AB4002BE005 /* Sources */,
+				6FB8D60E16826AB4002BE005 /* Frameworks */,
+				6FB8D653168286D1002BE005 /* Headers */,
+				6FB8D60F16826AB4002BE005 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirPlaya;
+			productName = AirPlaya;
+			productReference = 6FB8D61116826AB4002BE005 /* libAirPlaya.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6FB8D60816826AB4002BE005 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Clay Bridges";
+			};
+			buildConfigurationList = 6FB8D60B16826AB4002BE005 /* Build configuration list for PBXProject "AirPlaya" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6FB8D60616826AB4002BE005;
+			productRefGroup = 6FB8D61216826AB4002BE005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6FB8D61016826AB4002BE005 /* AirPlaya */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6FB8D60D16826AB4002BE005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FB8D64F16828683002BE005 /* AirPlayaManager.m in Sources */,
+				6FB8D65016828683002BE005 /* AirPlayaDevice.m in Sources */,
+				6FB8D65116828683002BE005 /* AsyncSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6FB8D61D16826AB4002BE005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6FB8D61E16826AB4002BE005 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6FB8D62016826AB4002BE005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AirPlaya.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AirPlaya/AirPlaya-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6FB8D62116826AB4002BE005 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/AirPlaya.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AirPlaya/AirPlaya-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6FB8D60B16826AB4002BE005 /* Build configuration list for PBXProject "AirPlaya" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FB8D61D16826AB4002BE005 /* Debug */,
+				6FB8D61E16826AB4002BE005 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FB8D61F16826AB4002BE005 /* Build configuration list for PBXNativeTarget "AirPlaya" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FB8D62016826AB4002BE005 /* Debug */,
+				6FB8D62116826AB4002BE005 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6FB8D60816826AB4002BE005 /* Project object */;
+}

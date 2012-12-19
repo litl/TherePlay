@@ -16,9 +16,6 @@
 		1F6091B8138E9FD10093DE6C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6091B6138E9FD10093DE6C /* MainWindow.xib */; };
 		1F6091BB138E9FD10093DE6C /* AirCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6091BA138E9FD10093DE6C /* AirCamViewController.m */; };
 		1F6091BE138E9FD10093DE6C /* AirCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6091BC138E9FD10093DE6C /* AirCamViewController.xib */; };
-		1F6091CC138E9FE50093DE6C /* AKAirplayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6091C6138E9FE50093DE6C /* AKAirplayManager.m */; };
-		1F6091CD138E9FE50093DE6C /* AKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6091C8138E9FE50093DE6C /* AKDevice.m */; };
-		1F6091CE138E9FE50093DE6C /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6091CB138E9FE50093DE6C /* AsyncSocket.m */; };
 		1F6091D0138EA0000093DE6C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6091CF138EA0000093DE6C /* CFNetwork.framework */; };
 		1F6091D3138EA03F0093DE6C /* CameraImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6091D2138EA03F0093DE6C /* CameraImageHelper.m */; };
 		1F6091D5138EA04E0093DE6C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6091D4138EA04E0093DE6C /* CoreVideo.framework */; };
@@ -27,6 +24,8 @@
 		1F6091E3138EA0910093DE6C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6091E2138EA0910093DE6C /* AVFoundation.framework */; };
 		1FFBBA45138EC94D000CE68C /* DKRoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFBBA42138EC94D000CE68C /* DKRoundedRectView.m */; };
 		1FFBBA46138EC94D000CE68C /* DKToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFBBA44138EC94D000CE68C /* DKToast.m */; };
+		6FB8D65E168289C1002BE005 /* libAirPlaya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB8D65D168289C1002BE005 /* libAirPlaya.a */; };
+		6FB8D661168289FF002BE005 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8D660168289FF002BE005 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,12 +43,6 @@
 		1F6091B9138E9FD10093DE6C /* AirCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirCamViewController.h; sourceTree = "<group>"; };
 		1F6091BA138E9FD10093DE6C /* AirCamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirCamViewController.m; sourceTree = "<group>"; };
 		1F6091BD138E9FD10093DE6C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AirCamViewController.xib; sourceTree = "<group>"; };
-		1F6091C5138E9FE50093DE6C /* AKAirplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAirplayManager.h; sourceTree = "<group>"; };
-		1F6091C6138E9FE50093DE6C /* AKAirplayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAirplayManager.m; sourceTree = "<group>"; };
-		1F6091C7138E9FE50093DE6C /* AKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDevice.h; sourceTree = "<group>"; };
-		1F6091C8138E9FE50093DE6C /* AKDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDevice.m; sourceTree = "<group>"; };
-		1F6091CA138E9FE50093DE6C /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		1F6091CB138E9FE50093DE6C /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		1F6091CF138EA0000093DE6C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1F6091D1138EA03F0093DE6C /* CameraImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraImageHelper.h; sourceTree = "<group>"; };
 		1F6091D2138EA03F0093DE6C /* CameraImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraImageHelper.m; sourceTree = "<group>"; };
@@ -61,6 +54,8 @@
 		1FFBBA42138EC94D000CE68C /* DKRoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKRoundedRectView.m; sourceTree = "<group>"; };
 		1FFBBA43138EC94D000CE68C /* DKToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKToast.h; sourceTree = "<group>"; };
 		1FFBBA44138EC94D000CE68C /* DKToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKToast.m; sourceTree = "<group>"; };
+		6FB8D65D168289C1002BE005 /* libAirPlaya.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libAirPlaya.a; path = "../AirPlaya/build/Release-iphoneos/libAirPlaya.a"; sourceTree = "<group>"; };
+		6FB8D660168289FF002BE005 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FB8D65E168289C1002BE005 /* libAirPlaya.a in Frameworks */,
 				1F6091E3138EA0910093DE6C /* AVFoundation.framework in Frameworks */,
 				1F6091E1138EA08D0093DE6C /* QuartzCore.framework in Frameworks */,
 				1F6091D7138EA0690093DE6C /* CoreMedia.framework in Frameworks */,
@@ -85,6 +81,7 @@
 		1F609195138E9FD10093DE6C = {
 			isa = PBXGroup;
 			children = (
+				6FB8D660168289FF002BE005 /* Default-568h@2x.png */,
 				1F6091AA138E9FD10093DE6C /* AirCam */,
 				1F6091A3138E9FD10093DE6C /* Frameworks */,
 				1F6091A1138E9FD10093DE6C /* Products */,
@@ -102,6 +99,7 @@
 		1F6091A3138E9FD10093DE6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6FB8D65D168289C1002BE005 /* libAirPlaya.a */,
 				1F6091E2138EA0910093DE6C /* AVFoundation.framework */,
 				1F6091E0138EA08D0093DE6C /* QuartzCore.framework */,
 				1F6091D6138EA0690093DE6C /* CoreMedia.framework */,
@@ -117,7 +115,6 @@
 		1F6091AA138E9FD10093DE6C /* AirCam */ = {
 			isa = PBXGroup;
 			children = (
-				1F6091C4138E9FE50093DE6C /* AirplayKit */,
 				1F6091B3138E9FD10093DE6C /* AirCamAppDelegate.h */,
 				1F6091B4138E9FD10093DE6C /* AirCamAppDelegate.m */,
 				1FFBBA41138EC94D000CE68C /* DKRoundedRectView.h */,
@@ -144,28 +141,6 @@
 				1F6091B1138E9FD10093DE6C /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1F6091C4138E9FE50093DE6C /* AirplayKit */ = {
-			isa = PBXGroup;
-			children = (
-				1F6091C5138E9FE50093DE6C /* AKAirplayManager.h */,
-				1F6091C6138E9FE50093DE6C /* AKAirplayManager.m */,
-				1F6091C7138E9FE50093DE6C /* AKDevice.h */,
-				1F6091C8138E9FE50093DE6C /* AKDevice.m */,
-				1F6091C9138E9FE50093DE6C /* Sockets */,
-			);
-			name = AirplayKit;
-			path = ../../iOS/AirplayKit;
-			sourceTree = "<group>";
-		};
-		1F6091C9138E9FE50093DE6C /* Sockets */ = {
-			isa = PBXGroup;
-			children = (
-				1F6091CA138E9FE50093DE6C /* AsyncSocket.h */,
-				1F6091CB138E9FE50093DE6C /* AsyncSocket.m */,
-			);
-			path = Sockets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +196,7 @@
 				1F6091AF138E9FD10093DE6C /* InfoPlist.strings in Resources */,
 				1F6091B8138E9FD10093DE6C /* MainWindow.xib in Resources */,
 				1F6091BE138E9FD10093DE6C /* AirCamViewController.xib in Resources */,
+				6FB8D661168289FF002BE005 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,9 +210,6 @@
 				1F6091B2138E9FD10093DE6C /* main.m in Sources */,
 				1F6091B5138E9FD10093DE6C /* AirCamAppDelegate.m in Sources */,
 				1F6091BB138E9FD10093DE6C /* AirCamViewController.m in Sources */,
-				1F6091CC138E9FE50093DE6C /* AKAirplayManager.m in Sources */,
-				1F6091CD138E9FE50093DE6C /* AKDevice.m in Sources */,
-				1F6091CE138E9FE50093DE6C /* AsyncSocket.m in Sources */,
 				1F6091D3138EA03F0093DE6C /* CameraImageHelper.m in Sources */,
 				1FFBBA45138EC94D000CE68C /* DKRoundedRectView.m in Sources */,
 				1FFBBA46138EC94D000CE68C /* DKToast.m in Sources */,
@@ -308,11 +281,15 @@
 		1F6091C2138E9FD10093DE6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AirCam/AirCam-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/**",
+				);
 				INFOPLIST_FILE = "AirCam/AirCam-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -322,10 +299,14 @@
 		1F6091C3138E9FD10093DE6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AirCam/AirCam-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/**",
+				);
 				INFOPLIST_FILE = "AirCam/AirCam-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

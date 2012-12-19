@@ -12,54 +12,55 @@
 
 @implementation AirCamViewController
 
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
 	// Start the camera preview
 	[CameraImageHelper startRunning];
 	self.view = [CameraImageHelper previewWithBounds:self.view.bounds];
-	
+
 	// Listen for Airplay devices
-	manager = [[AKAirplayManager alloc] init];
+	manager = [[AirPlayaManager alloc] init];
+    manager.autoConnect = YES;
 	manager.delegate = self;
 	[manager findDevices];
 }
 
-#pragma mark -
-#pragma mark Airplay Delegate
-
-- (void) manager:(AKAirplayManager *)aManager didConnectToDevice:(AKDevice *)device
-{
-	[DKToast showToast:@"Connected. Sending camera over Airplay." duration:DKToastDurationLong];
-	
-	manager.connectedDevice.imageQuality = 0;
-	
-	// Start a timer to send the images
-	runTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendImage) userInfo:nil repeats:YES] retain];
-}
-
-#pragma mark -
-#pragma mark Timer
-
-- (void) sendImage
-{
-	[manager.connectedDevice sendImage:[CameraImageHelper image] forceReady:YES];
-}
-
-- (void) stop
-{
-	[runTimer invalidate];
-	[manager.connectedDevice sendStop];
-}
-
-#pragma mark - Cleanup
-
-- (void) dealloc
+- (void)dealloc
 {
 	[runTimer invalidate];
 	[runTimer release];
 	[manager release];
 	[CameraImageHelper stopRunning];
 	[super dealloc];
+}
+
+#pragma mark - AirplayManagerDelegate
+
+- (void)manager:(AirPlayaManager *)aManager didConnectToDevice:(AirPlayaDevice *)device
+{
+	[DKToast showToast:@"Connected. Sending camera over Airplay." duration:DKToastDurationLong];
+
+	manager.connectedDevice.imageQuality = 0;
+
+	// Start a timer to send the images
+	runTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1
+                                                 target:self
+                                               selector:@selector(sendImage)
+                                               userInfo:nil
+                                                repeats:YES] retain];
+}
+
+#pragma mark -Timer
+
+- (void)sendImage
+{
+	[manager.connectedDevice sendImage:[CameraImageHelper image] forceReady:YES];
+}
+
+- (void)stop
+{
+	[runTimer invalidate];
+	[manager.connectedDevice sendStop];
 }
 
 @end

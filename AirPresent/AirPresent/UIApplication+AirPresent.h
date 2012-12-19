@@ -11,8 +11,8 @@
 
 @interface UIApplication (AirPresent)
 
-- (void) beginPresentingScreen;
-- (void) endPresentingScreen;
+- (void)beginPresentingScreen;
+- (void)endPresentingScreen;
 
 @end
 

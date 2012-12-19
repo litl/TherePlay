@@ -56,24 +56,24 @@
     // Ignore attempt to set opaque to YES.
 }
 - (void)drawRect:(CGRect)rect {
-    
+
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, strokeWidth);
     CGContextSetStrokeColorWithColor(context, self.strokeColor.CGColor);
     CGContextSetFillColorWithColor(context, self.rectColor.CGColor);
-    
+
     CGRect rrect = self.bounds;
-    
+
     CGFloat radius = cornerRadius;
     CGFloat width = CGRectGetWidth(rrect);
     CGFloat height = CGRectGetHeight(rrect);
-    
+
     // Make sure corner radius isn't larger than half the shorter side
     if (radius > width/2.0)
         radius = width/2.0;
     if (radius > height/2.0)
         radius = height/2.0;    
-    
+
     CGFloat minx = CGRectGetMinX(rrect);
     CGFloat midx = CGRectGetMidX(rrect);
     CGFloat maxx = CGRectGetMaxX(rrect);

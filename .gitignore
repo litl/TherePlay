@@ -1,1 +1,12 @@
-/*.DS_Store
+# Xcode noise
+*.xcworkspace/xcuserdata/*
+**/*.xcworkspace/xcuserdata/*
+**/*.xcodeproj/xcuserdata/*
+**/*.xcodeproj/project.xcworkspace/*
+*.pbxuser
+*.mode1v3
+*.mode2v3
+
+# OS X & vim noise
+.DS_Store
+*.swp

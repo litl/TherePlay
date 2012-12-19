@@ -24,21 +24,21 @@ static CameraImageHelper *sharedInstance = nil;
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer); 
     size_t width = CVPixelBufferGetWidth(imageBuffer); 
     size_t height = CVPixelBufferGetHeight(imageBuffer); 
-    
+
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst); 
     CGImageRef newImage = CGBitmapContextCreateImage(context); 
 	CVPixelBufferUnlockBaseAddress(imageBuffer,0);
-	
+
 	self.image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
-	
+
     CGContextRelease(context); 
     CGColorSpaceRelease(colorSpace);
 	CGImageRelease(newImage);
 	[pool drain];
 }
 
-- (void) initialize
+- (void)initialize
 {
 	NSError *error;
 	AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] error:&error];
@@ -47,17 +47,17 @@ static CameraImageHelper *sharedInstance = nil;
 		NSLog(@"Error: %@", error);
 		return;
 	}
-	
+
 	// Update thanks to Jake Marsh who points out not to use the main queue
 	dispatch_queue_t queue = dispatch_queue_create("com.myapp.tasks.grabcameraframes", NULL);
 	AVCaptureVideoDataOutput *captureOutput = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
 	captureOutput.alwaysDiscardsLateVideoFrames = YES; 
 	[captureOutput setSampleBufferDelegate:self queue:queue];
 	// dispatch_release(queue); // Will not work when uncommented -- apparently reference count is altered by setSampleBufferDelegate:queue:
-	
+
 	NSDictionary *settings = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA] forKey:(NSString *)kCVPixelBufferPixelFormatTypeKey];
 	[captureOutput setVideoSettings:settings];
-	
+
 	self.session = [[[AVCaptureSession alloc] init] autorelease];
 	[self.session addInput:captureInput];
 	[self.session addOutput:captureOutput];
@@ -72,16 +72,16 @@ static CameraImageHelper *sharedInstance = nil;
 - (UIView *) previewWithBounds: (CGRect) bounds
 {
 	UIView *view = [[[UIView alloc] initWithFrame:bounds] autorelease];
-	
+
 	AVCaptureVideoPreviewLayer *preview = [AVCaptureVideoPreviewLayer layerWithSession: self.session];
 	preview.frame = bounds;
 	preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
 	[view.layer addSublayer: preview];
-	
+
 	return view;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
 	self.session = nil;
 	self.image = nil;
@@ -92,7 +92,7 @@ static CameraImageHelper *sharedInstance = nil;
 
 + (id) sharedInstance // private
 {
-	if(!sharedInstance) sharedInstance = [[self alloc] init];
+	if (!sharedInstance) sharedInstance = [[self alloc] init];
     return sharedInstance;
 }
 
