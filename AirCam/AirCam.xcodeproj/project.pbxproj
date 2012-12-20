@@ -54,7 +54,7 @@
 		1FFBBA42138EC94D000CE68C /* DKRoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKRoundedRectView.m; sourceTree = "<group>"; };
 		1FFBBA43138EC94D000CE68C /* DKToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKToast.h; sourceTree = "<group>"; };
 		1FFBBA44138EC94D000CE68C /* DKToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKToast.m; sourceTree = "<group>"; };
-		6FB8D65D168289C1002BE005 /* libAirPlaya.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libAirPlaya.a; path = "../AirPlaya/build/Release-iphoneos/libAirPlaya.a"; sourceTree = "<group>"; };
+		6FB8D65D168289C1002BE005 /* libAirPlaya.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAirPlaya.a; path = "../AirPlaya/build/Release-iphoneos/libAirPlaya.a"; sourceTree = "<group>"; };
 		6FB8D660168289FF002BE005 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +169,7 @@
 		1F609197138E9FD10093DE6C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Roozy;
 			};
 			buildConfigurationList = 1F60919A138E9FD10093DE6C /* Build configuration list for PBXProject "AirCam" */;
@@ -286,6 +287,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AirCam/AirCam-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(BUILT_PRODUCTS_DIR)/**",
@@ -303,6 +305,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AirCam/AirCam-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(BUILT_PRODUCTS_DIR)/**",
