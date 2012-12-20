@@ -11,8 +11,7 @@
 
 @implementation AirPlayaDevice
 
-#pragma mark -
-#pragma mark Initialization
+#pragma mark - lifecycle
 
 - (id)init
 {
@@ -24,22 +23,34 @@
 	return self;
 }
 
-- (NSString *)displayName
+- (id)initWithResolvedService:(NSNetService *)service
 {
-	NSString *name = _hostname;
-	if ([_hostname rangeOfString:@"-"].length != 0) {
-		name = [_hostname stringByReplacingCharactersInRange:[_hostname rangeOfString:@"-"] withString:@" "];
-	}
+    if ((self = [self init])) {
+        _service = [service retain];
+        _hostname = [service.hostName retain];
+        _port = service.port;
+    }
 
-	if ([name rangeOfString:@".local."].length != 0) {
-		name = [name stringByReplacingCharactersInRange:[name rangeOfString:@".local."] withString:@""];
-	}
-
-	return name;
+    return self;
 }
 
-#pragma mark -
-#pragma mark Public Methods
+- (void)dealloc
+{
+	[self sendStop];
+	[_socket release];
+    [_service release];
+	[_hostname release];
+
+	[super dealloc];
+}
+
+#pragma mark - Public Methods
+
+- (NSString *)displayName
+{
+	NSString *name = [_hostname stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+    return [name stringByReplacingOccurrencesOfString:@".local." withString:@""];
+}
 
 - (void)sendRawData:(NSData *)data
 {
@@ -119,8 +130,7 @@
 	[self sendRawData:[message dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
-#pragma mark -
-#pragma mark Socket Delegate
+#pragma mark - AsyncSocketDelegate
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
@@ -136,17 +146,6 @@
 		[queuedMessage release];
 		queuedMessage = nil;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc
-{
-	[self sendStop];
-	[_socket release];
-	[_hostname release];
-	[super dealloc];
 }
 
 @end

@@ -9,6 +9,7 @@
 
 @interface AirPlayaDevice : NSObject <AsyncSocketDelegate>
 
+@property (nonatomic, readonly, retain) NSNetService *service;
 @property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, retain) NSString *hostname;
 @property (nonatomic) UInt16 port;
@@ -16,6 +17,8 @@
 @property (nonatomic) BOOL connected; // Set to YES when the device is connected.
 @property (nonatomic, retain) AsyncSocket *socket; // The socket used to transmit data. Only use for completely custom actions.
 @property (nonatomic) CGFloat imageQuality; // JPEG image quality for sending images. Defaults to 0.8;
+
+- (id)initWithResolvedService:(NSNetService *)service;
 
 - (void)sendRawData:(NSData *)data;
 - (void)sendRawMessage:(NSString *)message; // Sends a raw HTTP string over Airplay.

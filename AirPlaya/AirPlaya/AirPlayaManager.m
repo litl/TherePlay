@@ -4,11 +4,12 @@
 
 @interface AirPlayaManager () <NSNetServiceBrowserDelegate, NSNetServiceDelegate> {
 @private
-	AirPlayaDevice *tempDevice;
-	NSMutableArray *foundServices;
+    NSMutableArray *devices;
+    NSMutableSet *unresolvedServices;
 }
 
 @property (nonatomic, retain) NSNetServiceBrowser *serviceBrowser;
+@property (nonatomic, retain) AirPlayaDevice *connectingDevice; // non-nil only during connection
 
 @end
 
@@ -20,7 +21,8 @@
 {
 	if ((self = [super init])) {
 		self.autoConnect = NO;
-		foundServices = [[NSMutableArray alloc] init];
+		devices = [[NSMutableArray alloc] init];
+        unresolvedServices = [[NSMutableSet alloc] init];
 	}
 
 	return self;
@@ -31,8 +33,8 @@
     [_serviceBrowser stop];
     [_serviceBrowser release];
 	[_connectedDevice release];
-	[foundServices removeAllObjects];
-	[foundServices release];
+    [devices release];
+	[unresolvedServices release];
 
 	[super dealloc];
 }
@@ -52,12 +54,23 @@
 {
 	NSLog(@"Connecting to device : %@:%d", device.hostname, device.port);
 
-	if (!tempDevice) {
-		tempDevice = [device retain];
+    // TODO: disconnect from connected device
 
-		AsyncSocket *socket = [[AsyncSocket alloc] initWithDelegate:self];
-		[socket connectToHost:device.hostname onPort:device.port error:NULL];
-	}
+    if (_connectingDevice) {
+        NSLog(@"Attempted to connect to device %@ while another connection in progress", device);
+        return;
+    }
+
+    // TODO all kinds of possible error states in here
+
+    self.connectingDevice = device;
+    device.socket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
+    [device.socket connectToHost:device.hostname onPort:device.port error:NULL];
+}
+
+- (NSArray *)devices
+{
+    return [NSArray arrayWithArray:devices];
 }
 
 #pragma mark - NetServiceBrowserDelegate
@@ -69,7 +82,7 @@
 	NSLog(@"Found service");
 	[netService setDelegate:self];
 	[netService resolveWithTimeout:20.0];
-	[foundServices addObject:netService];
+	[unresolvedServices addObject:netService];
 
 	if (!moreComing) {
 		[_serviceBrowser stop];
@@ -79,16 +92,16 @@
 
 #pragma mark - NetServiceDelegate
 
-- (void)netServiceDidResolveAddress:(NSNetService *)sender
+- (void)netServiceDidResolveAddress:(NSNetService *)service
 {
-	NSLog(@"Resolved service: %@:%d", sender.hostName, sender.port);
+	NSLog(@"Resolved service: %@:%d", service.hostName, service.port);
 
-	AirPlayaDevice *device = [[AirPlayaDevice alloc] init];
-	device.hostname = sender.hostName;
-	device.port = sender.port;
+	AirPlayaDevice *device = [[[AirPlayaDevice alloc] initWithResolvedService:service] autorelease];
+    [unresolvedServices removeObject:service];
+    [devices addObject:device];
 
 	if (_delegate && [_delegate respondsToSelector:@selector(manager:didFindDevice:)]) {
-		[_delegate manager:self didFindDevice:[device autorelease]];
+		[_delegate manager:self didFindDevice:device];
 	}
 
 	if (_autoConnect && !_connectedDevice) {
@@ -100,15 +113,16 @@
 
 - (void)onSocket:(AsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port
 {
-	NSLog(@"Connected to device.");
+    if (![[_connectingDevice socket] isEqual:socket]) {
+        NSLog(@"Ignoring %s from socket %@; socket does not match _connecting device %@", __PRETTY_FUNCTION__, socket,
+              _connectingDevice);
 
-	AirPlayaDevice *device = tempDevice;
-	device.socket = socket;
-	device.connected = YES;
+        return;
+    }
 
-	self.connectedDevice = device;
-	[device release];
-	tempDevice = nil;
+    _connectingDevice.connected = YES;
+    self.connectedDevice = _connectingDevice;
+    self.connectingDevice = nil;
 
 	if (_delegate && [_delegate respondsToSelector:@selector(manager:didConnectToDevice:)]) {
 		[self.connectedDevice sendReverse];

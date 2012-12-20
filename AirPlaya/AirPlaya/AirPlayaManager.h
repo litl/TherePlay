@@ -12,6 +12,7 @@
 @property (nonatomic, assign) id <AirPlayaManagerDelegate> delegate;
 @property (nonatomic) BOOL autoConnect; // Connects to the first found device automatically. Defaults to NO.
 @property (nonatomic, retain) AirPlayaDevice *connectedDevice;
+@property (nonatomic, readonly, retain) NSArray *devices; // array of AirPlayaDevice
 
 - (void)findDevices; // Searches for Airplay devices on the same wifi network.
 - (void)connectToDevice:(AirPlayaDevice *)device; // Connects to a found device.
