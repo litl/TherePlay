@@ -18,21 +18,21 @@ static CameraImageHelper *sharedInstance = nil;
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer); 
-    CVPixelBufferLockBaseAddress(imageBuffer,0); 
-    uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(imageBuffer); 
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer); 
-    size_t width = CVPixelBufferGetWidth(imageBuffer); 
-    size_t height = CVPixelBufferGetHeight(imageBuffer); 
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CVPixelBufferLockBaseAddress(imageBuffer,0);
+    uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(imageBuffer);
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
 
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
-    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst); 
-    CGImageRef newImage = CGBitmapContextCreateImage(context); 
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    CGImageRef newImage = CGBitmapContextCreateImage(context);
 	CVPixelBufferUnlockBaseAddress(imageBuffer,0);
 
 	self.image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
 
-    CGContextRelease(context); 
+    CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
 	CGImageRelease(newImage);
 	[pool drain];
@@ -51,7 +51,7 @@ static CameraImageHelper *sharedInstance = nil;
 	// Update thanks to Jake Marsh who points out not to use the main queue
 	dispatch_queue_t queue = dispatch_queue_create("com.myapp.tasks.grabcameraframes", NULL);
 	AVCaptureVideoDataOutput *captureOutput = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
-	captureOutput.alwaysDiscardsLateVideoFrames = YES; 
+	captureOutput.alwaysDiscardsLateVideoFrames = YES;
 	[captureOutput setSampleBufferDelegate:self queue:queue];
 	// dispatch_release(queue); // Will not work when uncommented -- apparently reference count is altered by setSampleBufferDelegate:queue:
 
@@ -98,7 +98,7 @@ static CameraImageHelper *sharedInstance = nil;
 
 + (void) startRunning
 {
-	[[[self sharedInstance] session] startRunning];	
+	[[[self sharedInstance] session] startRunning];
 }
 
 + (void) stopRunning

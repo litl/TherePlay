@@ -20,7 +20,7 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
+{
     [[UIApplication sharedApplication] beginPresentingScreen];
 
     // Add the view controller's view to the window and display.

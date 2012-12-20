@@ -61,10 +61,9 @@ static APManager *instance;
 #pragma mark -
 #pragma mark Singleton
 
-+ (APManager *) sharedManager
++ (APManager *)sharedManager
 {
-	if (!instance)
-	{
+	if (!instance) {
 		instance = [[APManager alloc] init];
 	}
 
@@ -76,19 +75,15 @@ static APManager *instance;
 
 - (void)start
 {
-	if (!airplay)
-	{
+	if (!airplay) {
 		airplay = [[AirPlayaManager alloc] init];
         airplay.autoConnect = YES;
 		airplay.delegate = self;
 	}
 
-	if (!airplay.connectedDevice)
-	{
+	if (!airplay.connectedDevice) {
 		[airplay findDevices];
-	}
-	else
-	{
+	} else {
 		[self manager:airplay didConnectToDevice:airplay.connectedDevice];
 	}
 }
@@ -97,8 +92,7 @@ static APManager *instance;
 {
 	[airplay.connectedDevice sendStop];
 
-	if (runTimer)
-	{
+	if (runTimer) {
 		[runTimer invalidate];
 		[runTimer release];
 		runTimer = nil;

@@ -147,7 +147,7 @@ static DKToastView *currentToast;
 		[window addSubview:newToast];
 
 		[self animateIn:newToast duration:displayLength];
-	}	
+	}
 }
 
 - (void)animateIn:(DKToastView *)toast duration:(DKToastDuration)duration
@@ -200,7 +200,7 @@ static DKToastView *currentToast;
 			currentToast.frame = CGRectMake(destX, destY, currentToast.frame.size.width, currentToast.frame.size.height);
 		}
 		else if ([UIApplication sharedApplication].statusBarOrientation == UIDeviceOrientationLandscapeRight)
-		{			
+		{
 			int destY = round((window.frame.size.height/2) - (currentToast.frame.size.width/2));
 			int destX = window.frame.size.width - 70 - currentToast.frame.size.height;
 

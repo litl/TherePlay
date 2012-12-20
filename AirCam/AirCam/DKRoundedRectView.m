@@ -27,9 +27,9 @@
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
 {
-    if ((self = [super initWithFrame:frame])) 
+    if ((self = [super initWithFrame:frame]))
     {
         // Initialization code
         self.opaque = NO;
@@ -72,7 +72,7 @@
     if (radius > width/2.0)
         radius = width/2.0;
     if (radius > height/2.0)
-        radius = height/2.0;    
+        radius = height/2.0;
 
     CGFloat minx = CGRectGetMinX(rrect);
     CGFloat midx = CGRectGetMidX(rrect);

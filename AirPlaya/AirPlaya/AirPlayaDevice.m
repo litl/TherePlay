@@ -58,7 +58,7 @@
 }
 
 - (void)sendContentURL:(NSString *)url
-{	
+{
 	NSString *body = [[NSString alloc] initWithFormat:@"Content-Location: %@\r\n"
 														"Start-Position: 0\r\n\r\n", url];
 	int length = [body length];
