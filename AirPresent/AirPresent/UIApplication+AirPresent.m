@@ -8,11 +8,11 @@
 
 #import "UIApplication+AirPresent.h"
 #import <QuartzCore/QuartzCore.h>
-#import "AirPlayaManager.h"
+#import "TherePlayManager.h"
 
-@interface APManager : NSObject <AirPlayaManagerDelegate>
+@interface APManager : NSObject <TherePlayManagerDelegate>
 {
-	AirPlayaManager *airplay;
+	TherePlayManager *airplay;
 	NSTimer *runTimer;
 }
 
@@ -76,7 +76,7 @@ static APManager *instance;
 - (void)start
 {
 	if (!airplay) {
-		airplay = [[AirPlayaManager alloc] init];
+		airplay = [[TherePlayManager alloc] init];
         airplay.autoConnect = YES;
 		airplay.delegate = self;
 	}
@@ -102,7 +102,7 @@ static APManager *instance;
 #pragma mark -
 #pragma mark Airplay Delegate
 
-- (void)manager:(AirPlayaManager *)manager didConnectToDevice:(AirPlayaDevice *)device
+- (void)manager:(TherePlayManager *)manager didConnectToDevice:(TherePlayDevice *)device
 {
 	// Start a timer to send the images
 	runTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(sendScreen) userInfo:nil repeats:YES] retain];

@@ -19,7 +19,7 @@
 	self.view = [CameraImageHelper previewWithBounds:self.view.bounds];
 
 	// Listen for Airplay devices
-	manager = [[AirPlayaManager alloc] init];
+	manager = [[TherePlayManager alloc] init];
     manager.autoConnect = YES;
 	manager.delegate = self;
 	[manager findDevices];
@@ -36,7 +36,7 @@
 
 #pragma mark - AirplayManagerDelegate
 
-- (void)manager:(AirPlayaManager *)aManager didConnectToDevice:(AirPlayaDevice *)device
+- (void)manager:(TherePlayManager *)aManager didConnectToDevice:(TherePlayDevice *)device
 {
 	[DKToast showToast:@"Connected. Sending camera over Airplay." duration:DKToastDurationLong];
 

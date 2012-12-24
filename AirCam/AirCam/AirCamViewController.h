@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AirPlayaManager.h"
-#import "AirPlayaDevice.h"
+#import "TherePlayManager.h"
+#import "TherePlayDevice.h"
 
-@interface AirCamViewController : UIViewController <AirPlayaManagerDelegate, AirPlayaDeviceDelegate>
+@interface AirCamViewController : UIViewController <TherePlayManagerDelegate, TherePlayDeviceDelegate>
 {
-    AirPlayaManager *manager;
+    TherePlayManager *manager;
 	NSTimer *runTimer;
 }
 

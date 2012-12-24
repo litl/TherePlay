@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6FB8D61016826AB4002BE005"
-               BuildableName = "libAirPlaya.a"
-               BlueprintName = "AirPlaya"
-               ReferencedContainer = "container:AirPlaya.xcodeproj">
+               BuildableName = "libTherePlay.a"
+               BlueprintName = "TherePlay"
+               ReferencedContainer = "container:TherePlay.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

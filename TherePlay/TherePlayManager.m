@@ -1,19 +1,19 @@
 //  Based on AKAirplayManager by Andy Roth.
 
-#import "AirPlayaManager.h"
+#import "TherePlayManager.h"
 
-@interface AirPlayaManager () <NSNetServiceBrowserDelegate, NSNetServiceDelegate> {
+@interface TherePlayManager () <NSNetServiceBrowserDelegate, NSNetServiceDelegate> {
 @private
     NSMutableArray *devices;
     NSMutableSet *unresolvedServices;
 }
 
 @property (nonatomic, retain) NSNetServiceBrowser *serviceBrowser;
-@property (nonatomic, retain) AirPlayaDevice *connectingDevice; // non-nil only during connection
+@property (nonatomic, retain) TherePlayDevice *connectingDevice; // non-nil only during connection
 
 @end
 
-@implementation AirPlayaManager
+@implementation TherePlayManager
 
 #pragma mark - lifecycle
 
@@ -50,7 +50,7 @@
 	[_serviceBrowser searchForServicesOfType:@"_airplay._tcp" inDomain:@""];
 }
 
-- (void)connectToDevice:(AirPlayaDevice *)device
+- (void)connectToDevice:(TherePlayDevice *)device
 {
 	NSLog(@"Connecting to device : %@:%d", device.hostname, device.port);
 
@@ -96,7 +96,7 @@
 {
 	NSLog(@"Resolved service: %@:%d", service.hostName, service.port);
 
-	AirPlayaDevice *device = [[[AirPlayaDevice alloc] initWithResolvedService:service] autorelease];
+	TherePlayDevice *device = [[[TherePlayDevice alloc] initWithResolvedService:service] autorelease];
     [unresolvedServices removeObject:service];
     [devices addObject:device];
 

@@ -1,15 +1,15 @@
 // Based on AKDevice by Andy Roth.
 
-#import "AirPlayaDevice.h"
+#import "TherePlayDevice.h"
 
-@interface AirPlayaDevice () {
+@interface TherePlayDevice () {
 @private
     BOOL okToSend;
     NSString *queuedMessage;
 }
 @end
 
-@implementation AirPlayaDevice
+@implementation TherePlayDevice
 
 #pragma mark - lifecycle
 

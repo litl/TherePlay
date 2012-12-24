@@ -3,17 +3,17 @@
 #import <UIKit/UIKit.h>
 #import "AsyncSocket.h"
 
-#pragma mark - AirPlayaDevice
+#pragma mark - TherePlayDevice
 
-@protocol AirPlayaDeviceDelegate;
+@protocol TherePlayDeviceDelegate;
 
-@interface AirPlayaDevice : NSObject <AsyncSocketDelegate>
+@interface TherePlayDevice : NSObject <AsyncSocketDelegate>
 
 @property (nonatomic, readonly, retain) NSNetService *service;
 @property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, retain) NSString *hostname;
 @property (nonatomic) UInt16 port;
-@property (nonatomic, assign) id <AirPlayaDeviceDelegate> delegate;
+@property (nonatomic, assign) id <TherePlayDeviceDelegate> delegate;
 @property (nonatomic) BOOL connected; // Set to YES when the device is connected.
 @property (nonatomic, retain) AsyncSocket *socket; // The socket used to transmit data. Only use for completely custom actions.
 @property (nonatomic) CGFloat imageQuality; // JPEG image quality for sending images. Defaults to 0.8;
@@ -30,13 +30,13 @@
 
 @end
 
-#pragma mark - AirPlayaDeviceDelegate
+#pragma mark - TherePlayDeviceDelegate
 
-@protocol AirPlayaDeviceDelegate <NSObject>
+@protocol TherePlayDeviceDelegate <NSObject>
 
 @optional
 
-- (void)device:(AirPlayaDevice *)device didSendBackMessage:(NSString *)message;
+- (void)device:(TherePlayDevice *)device didSendBackMessage:(NSString *)message;
 
 @end
 

@@ -24,7 +24,7 @@
 		1F6091E3138EA0910093DE6C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6091E2138EA0910093DE6C /* AVFoundation.framework */; };
 		1FFBBA45138EC94D000CE68C /* DKRoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFBBA42138EC94D000CE68C /* DKRoundedRectView.m */; };
 		1FFBBA46138EC94D000CE68C /* DKToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFBBA44138EC94D000CE68C /* DKToast.m */; };
-		6FB8D65E168289C1002BE005 /* libAirPlaya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB8D65D168289C1002BE005 /* libAirPlaya.a */; };
+		6FB87D3C1688E07D001EC642 /* libTherePlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB87D3B1688E07D001EC642 /* libTherePlay.a */; };
 		6FB8D661168289FF002BE005 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB8D660168289FF002BE005 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +54,7 @@
 		1FFBBA42138EC94D000CE68C /* DKRoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKRoundedRectView.m; sourceTree = "<group>"; };
 		1FFBBA43138EC94D000CE68C /* DKToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKToast.h; sourceTree = "<group>"; };
 		1FFBBA44138EC94D000CE68C /* DKToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKToast.m; sourceTree = "<group>"; };
+		6FB87D3B1688E07D001EC642 /* libTherePlay.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libTherePlay.a; path = "../TherePlay/build/Release-iphoneos/libTherePlay.a"; sourceTree = "<group>"; };
 		6FB8D65D168289C1002BE005 /* libAirPlaya.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAirPlaya.a; path = "../AirPlaya/build/Release-iphoneos/libAirPlaya.a"; sourceTree = "<group>"; };
 		6FB8D660168289FF002BE005 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FB8D65E168289C1002BE005 /* libAirPlaya.a in Frameworks */,
+				6FB87D3C1688E07D001EC642 /* libTherePlay.a in Frameworks */,
 				1F6091E3138EA0910093DE6C /* AVFoundation.framework in Frameworks */,
 				1F6091E1138EA08D0093DE6C /* QuartzCore.framework in Frameworks */,
 				1F6091D7138EA0690093DE6C /* CoreMedia.framework in Frameworks */,
@@ -81,6 +82,7 @@
 		1F609195138E9FD10093DE6C = {
 			isa = PBXGroup;
 			children = (
+				6FB87D3B1688E07D001EC642 /* libTherePlay.a */,
 				6FB8D660168289FF002BE005 /* Default-568h@2x.png */,
 				1F6091AA138E9FD10093DE6C /* AirCam */,
 				1F6091A3138E9FD10093DE6C /* Frameworks */,
