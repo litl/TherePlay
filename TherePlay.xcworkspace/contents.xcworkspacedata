@@ -5,9 +5,9 @@
       location = "group:TherePlay/TherePlay.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AirCam/AirCam.xcodeproj">
+      location = "group:examples/AirCam/AirCam.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AirPresent/AirPresent.xcodeproj">
+      location = "group:examples/AirPresent/AirPresent.xcodeproj">
    </FileRef>
 </Workspace>
