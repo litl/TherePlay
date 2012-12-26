@@ -1,16 +1,7 @@
-//
-//  AirPresentViewController.h
-//  AirPresent
-//
-//  Created by Andy Roth on 1/22/11.
-//  Copyright 2011 Roozy. All rights reserved.
-//
+//  Based on code from AirplayKit by Andy Roth.
 
 #import <UIKit/UIKit.h>
 
-@interface AirPresentViewController : UIViewController {
-
-}
-
+@interface AirPresentViewController : UIViewController
 @end
 

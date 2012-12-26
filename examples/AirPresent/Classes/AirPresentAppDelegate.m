@@ -1,75 +1,41 @@
-//
-//  AirPresentAppDelegate.m
-//  AirPresent
-//
-//  Created by Andy Roth on 1/22/11.
-//  Copyright 2011 Roozy. All rights reserved.
-//
+//  Based on code from AirplayKit by Andy Roth.
 
 #import "AirPresentAppDelegate.h"
 #import "AirPresentViewController.h"
-#import "UIApplication+AirPresent.h"
+#import "APManager.h"
 
 @implementation AirPresentAppDelegate
 
-@synthesize window;
-@synthesize viewController;
-
-
-#pragma mark -
-#pragma mark Application lifecycle
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] beginPresentingScreen];
+    [[APManager sharedManager] start];
 
     // Add the view controller's view to the window and display.
-    [self.window addSubview:viewController.view];
+    [self.window addSubview:_viewController.view];
     [self.window makeKeyAndVisible];
 
     return YES;
 }
 
+- (void)dealloc {
+    [_viewController release];
+    [_window release];
+
+    [super dealloc];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    [[UIApplication sharedApplication] endPresentingScreen];
-}
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-	//[[UIApplication sharedApplication] endPresentingScreen];
-}
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    //[[UIApplication sharedApplication] beginPresentingScreen];
+    [[APManager sharedManager] stop];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [[UIApplication sharedApplication] beginPresentingScreen];
+    [[APManager sharedManager] start];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[UIApplication sharedApplication] endPresentingScreen];
-}
-
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-    /*
-     Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
-     */
-}
-
-
-- (void)dealloc {
-    [viewController release];
-    [window release];
-    [super dealloc];
+    [[APManager sharedManager] stop];
 }
 
 
