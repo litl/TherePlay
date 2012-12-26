@@ -1,10 +1,4 @@
-//
-//  AirCamViewController.m
-//  AirCam
-//
-//  Created by Andy Roth on 5/26/11.
-//  Copyright 2011 Roozy. All rights reserved.
-//
+//  Based on code from AirplayKit by Andy Roth.
 
 #import "AirCamViewController.h"
 #import "CameraImageHelper.h"
@@ -22,7 +16,7 @@
 	manager = [[TherePlayManager alloc] init];
     manager.autoConnect = YES;
 	manager.delegate = self;
-	[manager findDevices];
+	[manager start];
 }
 
 - (void)dealloc
@@ -36,7 +30,7 @@
 
 #pragma mark - AirplayManagerDelegate
 
-- (void)manager:(TherePlayManager *)aManager didConnectToDevice:(TherePlayDevice *)device
+- (void)therePlayManager:(TherePlayManager *)aManager didConnectToDevice:(TherePlayDevice *)device
 {
 	[DKToast showToast:@"Connected. Sending camera over Airplay." duration:DKToastDurationLong];
 
