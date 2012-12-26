@@ -38,6 +38,7 @@
 - (void)dealloc
 {
 	[self sendStop];
+    _socket.delegate = nil;
 	[_socket release];
     [_service release];
 	[_hostname release];

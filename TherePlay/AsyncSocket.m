@@ -2203,13 +2203,15 @@ Failed:
 	// Clear all flags (except the pre-buffering flag, which should remain as is)
 	theFlags &= kEnablePreBuffering;
 
-	if (shouldCallDelegate)
-	{
-		if ([theDelegate respondsToSelector: @selector(onSocketDidDisconnect:)])
-		{
-			[theDelegate onSocketDidDisconnect:self];
-		}
-	}
+    // There's some chance theDelegate is no longer a valid object.
+    // If that's the case, this try/catch block will exit with shouldCallDelegate == NO
+    @try {
+        shouldCallDelegate = shouldCallDelegate && [theDelegate respondsToSelector: @selector(onSocketDidDisconnect:)];
+    } @catch (NSException *exception) {
+        shouldCallDelegate = NO;
+    }
+
+    if (shouldCallDelegate) [theDelegate onSocketDidDisconnect:self];
 
 	// Do not access any instance variables after calling onSocketDidDisconnect.
 	// This gives the delegate freedom to release us without returning here and crashing.
@@ -3911,10 +3913,15 @@ Failed:
 {
 	NSAssert(theCurrentWrite, @"Trying to complete current write when there is no current write.");
 
-	if ([theDelegate respondsToSelector:@selector(onSocket:didWriteDataWithTag:)])
-	{
-		[theDelegate onSocket:self didWriteDataWithTag:theCurrentWrite->tag];
-	}
+    // There's some chance theDelegate is no longer a valid object. If so, -respondsToSelector will exeception.
+    BOOL callDelegate = NO;
+    @try {
+        callDelegate = [theDelegate respondsToSelector:@selector(onSocket:didWriteDataWithTag:)];
+    } @catch (NSException *exception) {
+        callDelegate = NO;
+    }
+
+    if (callDelegate) [theDelegate onSocket:self didWriteDataWithTag:theCurrentWrite->tag];
 
 	if (theCurrentWrite != nil) [self endCurrentWrite]; // Caller may have disconnected.
 }
