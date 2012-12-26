@@ -1,6 +1,7 @@
 //  Based on AKAirplayManager by Andy Roth.
 
 #import "TherePlayManager.h"
+#import "AsyncSocket.h"
 
 @interface TherePlayManager () <NSNetServiceBrowserDelegate, NSNetServiceDelegate> {
 @private

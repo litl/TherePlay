@@ -1,13 +1,13 @@
 // Based on AKDevice by Andy Roth.
 
 #import <UIKit/UIKit.h>
-#import "AsyncSocket.h"
 
 #pragma mark - TherePlayDevice
 
 @protocol TherePlayDeviceDelegate;
+@class AsyncSocket;
 
-@interface TherePlayDevice : NSObject <AsyncSocketDelegate>
+@interface TherePlayDevice : NSObject
 
 @property (nonatomic, readonly, retain) NSNetService *service;
 @property (nonatomic, readonly) NSString *displayName;

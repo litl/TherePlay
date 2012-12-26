@@ -1,7 +1,6 @@
 //  Based on AKAirplayManager by Andy Roth.
 
 #import "TherePlayDevice.h"
-#import "AsyncSocket.h"
 
 #pragma mark - TherePlayManager
 

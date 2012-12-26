@@ -1,8 +1,9 @@
 // Based on AKDevice by Andy Roth.
 
 #import "TherePlayDevice.h"
+#import "AsyncSocket.h"
 
-@interface TherePlayDevice () {
+@interface TherePlayDevice ()  <AsyncSocketDelegate> {
 @private
     BOOL okToSend;
     NSString *queuedMessage;
