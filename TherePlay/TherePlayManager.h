@@ -8,13 +8,14 @@
 
 @interface TherePlayManager : NSObject
 
+@property (nonatomic, readonly, retain) NSArray *devices; // array of TherePlayDevice
+@property (nonatomic, retain) TherePlayDevice *connectedDevice;
 @property (nonatomic, assign) id <TherePlayManagerDelegate> delegate;
 @property (nonatomic) BOOL autoConnect; // Connects to the first found device automatically. Defaults to NO.
-@property (nonatomic, retain) TherePlayDevice *connectedDevice;
-@property (nonatomic, readonly, retain) NSArray *devices; // array of TherePlayDevice
 
 - (void)findDevices; // Searches for Airplay devices on the same wifi network.
 - (void)connectToDevice:(TherePlayDevice *)device; // Connects to a found device.
+- (void)disconnectFromDevice:(TherePlayDevice *)device;
 
 @end
 
@@ -24,10 +25,10 @@
 
 @optional
 
-// Use -connectToDevice: to connect to a specific device.
-// Once connected, use TherePlayManager methods to communicate over AirPlay.
-
-- (void)manager:(TherePlayManager *)manager didFindDevice:(TherePlayDevice *)device;
-- (void)manager:(TherePlayManager *)manager didConnectToDevice:(TherePlayDevice *)device;
+- (void)therePlayManager:(TherePlayManager *)manager didFindDevice:(TherePlayDevice *)device;
+- (void)therePlayManager:(TherePlayManager *)manager didConnectToDevice:(TherePlayDevice *)device;
+- (void)therePlayManager:(TherePlayManager *)manager didDisconnectFromDevice:(TherePlayDevice *)device;
+- (void)therePlayManagerWillUpdateDevices:(TherePlayManager *)manager;
+- (void)therePlayManagerDidUpdateDevices:(TherePlayManager *)manager;
 
 @end
