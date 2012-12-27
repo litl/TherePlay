@@ -45,6 +45,14 @@
 	[super dealloc];
 }
 
+- (NSString *)description
+{
+    NSMutableString *s = [[[[super description] stringByReplacingOccurrencesOfString:@">" withString:@""] mutableCopy]
+                          autorelease];
+    [s appendFormat:@", %@>", _service];
+    return s;
+}
+
 #pragma mark - Public Methods
 
 - (NSString *)displayName
