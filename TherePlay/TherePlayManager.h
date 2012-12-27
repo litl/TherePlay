@@ -13,7 +13,8 @@
 @property (nonatomic, assign) id <TherePlayManagerDelegate> delegate;
 @property (nonatomic) BOOL autoConnect; // Connects to the first found device automatically. Defaults to NO.
 
-- (void)findDevices; // Searches for Airplay devices on the same wifi network.
+- (void)start; // starts searching for Airplay devices on the same wifi network
+- (void)stop;
 - (void)connectToDevice:(TherePlayDevice *)device; // Connects to a found device.
 - (void)disconnectFromDevice:(TherePlayDevice *)device;
 

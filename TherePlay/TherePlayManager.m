@@ -68,15 +68,26 @@
 	[super dealloc];
 }
 
-#pragma mark - Public Methods
+#pragma mark - public Methods
 
-- (void)findDevices
+- (void)start
 {
-	NSLog(@"Finding Airport devices.");
+    if (_serviceBrowser) {
+        NSLog(@"Already searching for AirPlay services");
+    } else {
+        NSLog(@"Begin searching for AirPlay services");
 
-	_serviceBrowser = [[NSNetServiceBrowser alloc] init];
-	[_serviceBrowser setDelegate:self];
-	[_serviceBrowser searchForServicesOfType:@"_airplay._tcp" inDomain:@""];
+        _serviceBrowser = [[NSNetServiceBrowser alloc] init];
+        _serviceBrowser.delegate = self;
+        [_serviceBrowser searchForServicesOfType:@"_airplay._tcp" inDomain:@""];
+    }
+}
+
+- (void)stop
+{
+    [_serviceBrowser stop];
+    _serviceBrowser.delegate = nil;
+    self.serviceBrowser = nil;
 }
 
 - (void)connectToDevice:(TherePlayDevice *)device
