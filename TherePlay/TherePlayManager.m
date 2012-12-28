@@ -203,13 +203,12 @@
         }
 
         if ((device = [self existingDeviceForService:service])) {
-            NSLog(@"Removing device %@ for service: %@:%d", device, service.hostName, service.port);
+            NSLog(@"Removing device %@", device);
             if (_connectedDevice == device) {
                 [self disconnectFromDevice:device];
             }
 
             [devices removeObject:device];
-            NSLog(@"Removed device %@ for service: %@:%d", device, service.hostName, service.port);
         }
     }
 
@@ -224,6 +223,7 @@
         if ((device = [self existingDeviceForService:service])) {
             NSLog(@"service %@ already attached to device %@", service, device);
         } else {
+            // each service so set up will call back via NSNetServiceDelegate
             [service setDelegate:self];
             [service resolveWithTimeout:20.0];
         }
@@ -258,7 +258,7 @@
     return nil;
 }
 
-#pragma mark - NetServiceBrowserDelegate
+#pragma mark - NSNetServiceBrowserDelegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didNotSearch:(NSDictionary *)errorDict
 {
@@ -290,7 +290,7 @@
     }
 }
 
-#pragma mark - NetServiceDelegate
+#pragma mark - NSNetServiceDelegate
 
 - (void)netServiceDidResolveAddress:(NSNetService *)service
 {
