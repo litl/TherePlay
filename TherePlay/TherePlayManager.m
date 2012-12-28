@@ -215,10 +215,9 @@
 
     [_servicesToRemove removeAllObjects];
 
-    // must kick this off here, since -netServiceDidResolveAddress: will not be called
-    if (![_servicesToAdd count] && [_delegate respondsToSelector:@selector(therePlayManagerDidUpdateDevices:)]) {
-        [_delegate therePlayManagerDidUpdateDevices:self];
-    }
+    // Must try this here, because other path, via -netServiceDidResolveAddress:, will be called only if
+    // there are services to add.
+    [self sendDidUpdateMessageIfWarranted];
 
     for (NSNetService *service in _servicesToAdd) {
         // skip services that are already attached to a device
@@ -243,8 +242,8 @@
 {
     if (![_servicesToAdd count]) {
         NSLog(@"%@ did update devices", NSStringFromClass([self class]));
-        if ([_delegate respondsToSelector:@selector(therePlayManagerWillUpdateDevices:)]) {
-            [_delegate therePlayManagerWillUpdateDevices:self];
+        if ([_delegate respondsToSelector:@selector(therePlayManagerDidUpdateDevices:)]) {
+            [_delegate therePlayManagerDidUpdateDevices:self];
         }
     }
 }
