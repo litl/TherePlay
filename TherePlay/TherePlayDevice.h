@@ -4,6 +4,11 @@
 
 #pragma mark - TherePlayDevice
 
+/* TherePlayDevice is a wrapper to NSNetService which manages a connection to
+ the service and various other bits of state. -isEqual:/hash maps directly to
+ the underlying NSNetService, for NSSet/NSDictionary good citizenship, etc.
+ */
+
 @protocol TherePlayDeviceDelegate;
 @class AsyncSocket;
 

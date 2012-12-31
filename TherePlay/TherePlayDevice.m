@@ -12,7 +12,7 @@
 
 @implementation TherePlayDevice
 
-#pragma mark - lifecycle
+#pragma mark - lifecycle & NSObject
 
 - (id)init
 {
@@ -44,6 +44,22 @@
 	[_hostname release];
 
 	[super dealloc];
+}
+
+// -isEqual:/hash map directly to the underlying NSNetService, for NSSet/NSDictionary good citizenship, etc.
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[self class]]) {
+        return NO;
+    }
+
+    return [_service isEqual:((TherePlayDevice *)object).service];
+}
+
+- (NSUInteger)hash
+{
+    return _service.hash;
 }
 
 - (NSString *)description
