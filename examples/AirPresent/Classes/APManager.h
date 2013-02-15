@@ -6,6 +6,7 @@
 
 - (void)start;
 - (void)stop;
+- (void)startStop;
 
 @end
 

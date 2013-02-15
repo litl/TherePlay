@@ -3,5 +3,10 @@
 #import <UIKit/UIKit.h>
 
 @interface AirPresentViewController : UIViewController
+
+@property (nonatomic, retain) IBOutlet UIButton *startStopButton;
+
+- (IBAction)handleStartStopButtonTouchUpInside;
+
 @end
 
