@@ -46,12 +46,21 @@ static APManager *instance;
 
 - (void)stop
 {
-	[airplay.connectedDevice sendStop];
+    [airplay stop];
 
 	if (runTimer) {
 		[runTimer invalidate];
 		runTimer = nil;
 	}
+}
+
+- (void)startStop
+{
+    if (runTimer) {
+        [self stop];
+    } else {
+        [self start];
+    }
 }
 
 #pragma mark - private methods

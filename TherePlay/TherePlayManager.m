@@ -28,6 +28,7 @@
 @property (nonatomic) BOOL isAddingServices;
 @property (nonatomic) BOOL isRemovingServices;
 @property (nonatomic) BOOL isUpdatingServices;
+@property (nonatomic) BOOL isSearching;
 @property (nonatomic, retain) NSMutableSet *servicesToRemove;
 @property (nonatomic, retain) NSMutableSet *servicesToAdd;
 
@@ -45,6 +46,7 @@
 		devices = [[NSMutableOrderedSet alloc] init];
         _servicesToAdd = [[NSMutableSet alloc] init];
         _servicesToRemove = [[NSMutableSet alloc] init];
+        _isSearching = NO;
 	}
 
 	return self;
@@ -72,22 +74,37 @@
 
 - (void)start
 {
-    if (_serviceBrowser) {
+    if (!_serviceBrowser) {
+        _serviceBrowser = [[NSNetServiceBrowser alloc] init];
+        _serviceBrowser.delegate = self;
+    }
+
+    if (_isSearching) {
         NSLog(@"Already searching for AirPlay services");
     } else {
         NSLog(@"Begin searching for AirPlay services");
-
-        _serviceBrowser = [[NSNetServiceBrowser alloc] init];
-        _serviceBrowser.delegate = self;
+        _isSearching = YES;
         [_serviceBrowser searchForServicesOfType:@"_airplay._tcp" inDomain:@""];
     }
 }
 
 - (void)stop
 {
-    [_serviceBrowser stop];
-    _serviceBrowser.delegate = nil;
-    self.serviceBrowser = nil;
+    if (_isSearching) {
+        _isSearching = NO;
+        [_serviceBrowser stop];
+        _isAddingServices = NO;
+        _isRemovingServices = NO;
+        _isUpdatingServices = NO;
+
+        if (_connectedDevice) {
+            [self disconnectFromDevice:_connectedDevice];
+        }
+        [self setConnectingDevice:nil];
+        [_servicesToAdd removeAllObjects];
+        [_servicesToRemove removeAllObjects];
+        [devices removeAllObjects];
+    }
 }
 
 - (void)connectToDevice:(TherePlayDevice *)device
@@ -332,6 +349,8 @@
 
 - (void)onSocket:(AsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port
 {
+    // TODO: if we are stopped, then we should disconnect on connection
+
     if (![[_connectingDevice socket] isEqual:socket]) {
         NSLog(@"Ignoring %s from socket %@; socket does not match _connecting device %@", __PRETTY_FUNCTION__, socket,
               _connectingDevice);
