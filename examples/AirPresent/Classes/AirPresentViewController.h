@@ -7,6 +7,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *startStopButton;
 
 - (IBAction)handleStartStopButtonTouchUpInside;
+- (IBAction)handleUseNamedDeviceButtonTouchUpInside;
 
 @end
 

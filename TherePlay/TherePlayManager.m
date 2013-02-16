@@ -32,6 +32,9 @@
 @property (nonatomic, retain) NSMutableSet *servicesToRemove;
 @property (nonatomic, retain) NSMutableSet *servicesToAdd;
 
+@property (nonatomic, retain) NSString *deviceNameToAttemptConnection;
+@property (nonatomic, copy) void(^blockToRunAfterConnection)(BOOL success);
+
 @end
 
 @implementation TherePlayManager
@@ -58,6 +61,9 @@
         // this will release _connectedDevice
         [self disconnectFromDevice:_connectedDevice];
     }
+
+    [_deviceNameToAttemptConnection release];
+    [_blockToRunAfterConnection release];
 
     _serviceBrowser.delegate = nil;
     [_serviceBrowser stop];
@@ -152,8 +158,24 @@
     return [devices array];
 }
 
-#pragma mark - private methods
+- (void)attemptConnectionToDeviceWithName:(NSString *)name running:(void(^)(BOOL success))blockToRun
+{
+    // unlikely, but possible:
+    // we're overridding an existing request, so call the outgoing block with success=NO
+    if (_deviceNameToAttemptConnection && _blockToRunAfterConnection) {
+        _blockToRunAfterConnection(NO);
+    }
 
+    [self setDeviceNameToAttemptConnection:name];
+    [self setBlockToRunAfterConnection:blockToRun];
+
+    // do it now, or it will run automatically after services have finished updating
+    if (!_isUpdatingServices) {
+        [self attemptNamedConnection];
+    }
+}
+
+#pragma mark - private methods
 
 // TODO: there is a state problem when we are through updating services, but prior to didUpdateDevices, and devices
 // start an updating cycle.
@@ -275,6 +297,28 @@
     return nil;
 }
 
+- (void)attemptNamedConnection
+{
+    TherePlayDevice *device = nil;
+
+    if (_deviceNameToAttemptConnection != nil && [_deviceNameToAttemptConnection length] > 0) {
+        for (device in devices) {
+            if ([_deviceNameToAttemptConnection isEqualToString:[device displayName]]) {
+                break;
+            }
+        }
+    }
+
+    [self setDeviceNameToAttemptConnection:nil]; // regardless, we're done with the name now
+
+    if (device) {
+        [self connectToDevice:device];
+    } else if (_blockToRunAfterConnection) {
+        _blockToRunAfterConnection(NO); // failed to find it
+        [self setBlockToRunAfterConnection:nil];
+    }
+}
+
 #pragma mark - NSNetServiceBrowserDelegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didNotSearch:(NSDictionary *)errorDict
@@ -361,6 +405,12 @@
     _connectingDevice.connected = YES;
     self.connectedDevice = _connectingDevice;
     self.connectingDevice = nil;
+
+    // we define that the block proceeds delegate callback
+    if (_blockToRunAfterConnection) {
+        _blockToRunAfterConnection(YES);
+        [self setBlockToRunAfterConnection:nil];
+    }
 
 	if (_delegate && [_delegate respondsToSelector:@selector(therePlayManager:didConnectToDevice:)]) {
 		[self.connectedDevice sendReverse];
