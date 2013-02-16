@@ -63,6 +63,15 @@ static APManager *instance;
     }
 }
 
+- (void)reconnectUsingDeviceNameWithBlock:(void (^)(BOOL))block
+{
+    if (airplay.connectedDevice) {
+        [airplay attemptConnectionToDeviceWithName:airplay.connectedDevice.displayName running:block];
+    } else if (block) {
+        block(NO);
+    }
+}
+
 #pragma mark - private methods
 
 - (void)sendScreen
