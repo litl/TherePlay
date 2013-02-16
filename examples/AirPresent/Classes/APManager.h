@@ -2,11 +2,12 @@
 
 @interface APManager : NSObject
 
-+ (APManager *) sharedManager;
++ (APManager *)sharedManager;
 
 - (void)start;
 - (void)stop;
 - (void)startStop;
+- (void)reconnectUsingDeviceNameWithBlock:(void(^)(BOOL success))block;
 
 @end
 

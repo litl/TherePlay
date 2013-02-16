@@ -17,6 +17,7 @@
 - (void)stop;
 - (void)connectToDevice:(TherePlayDevice *)device; // Connects to a found device.
 - (void)disconnectFromDevice:(TherePlayDevice *)device;
+- (void)attemptConnectionToDeviceWithName:(NSString *)name running:(void(^)(BOOL success))blockToRun;
 
 @end
 
