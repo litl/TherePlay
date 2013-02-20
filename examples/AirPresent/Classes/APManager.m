@@ -38,7 +38,7 @@ static APManager *instance;
 	}
 
 	if (!airplay.connectedDevice) {
-		[airplay start];
+		[airplay activate];
 	} else {
 		[self therePlayManager:airplay didConnectToDevice:airplay.connectedDevice];
 	}
@@ -46,7 +46,7 @@ static APManager *instance;
 
 - (void)stop
 {
-    [airplay stop];
+    [airplay deactivate];
 
 	if (runTimer) {
 		[runTimer invalidate];
