@@ -16,7 +16,7 @@
 	manager = [[TherePlayManager alloc] init];
     manager.autoConnect = YES;
 	manager.delegate = self;
-	[manager start];
+	[manager activate];
 }
 
 - (void)dealloc
