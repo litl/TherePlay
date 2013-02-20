@@ -15,7 +15,7 @@
 // one-to-one relationship with services, on which they depend. So first we sort the add/remove list for services,
 // and then update devices.
 //
-// Note that added services are do not "become" devices until they resolve, cf. NSNetServiceDelegate methods.
+// Note that added services do not "become" devices until they resolve, cf. NSNetServiceDelegate methods.
 //
 // -therePlayManagerWillUpdateDevices is sent when we first start updating the services (which will ultimately update
 //     *devices*).
@@ -28,9 +28,10 @@
 @property (nonatomic) BOOL isAddingServices;
 @property (nonatomic) BOOL isRemovingServices;
 @property (nonatomic) BOOL isUpdatingServices;
-@property (nonatomic) BOOL isSearching;
+@property (nonatomic) BOOL isMonitoring;
 @property (nonatomic, retain) NSMutableSet *servicesToRemove;
 @property (nonatomic, retain) NSMutableSet *servicesToAdd;
+@property (nonatomic, retain) NSMutableArray *blocksToRunAfterUpdate;
 
 @property (nonatomic, retain) NSString *deviceNameToAttemptConnection;
 @property (nonatomic, copy) void(^blockToRunAfterConnection)(BOOL success);
@@ -49,7 +50,8 @@
 		devices = [[NSMutableOrderedSet alloc] init];
         _servicesToAdd = [[NSMutableSet alloc] init];
         _servicesToRemove = [[NSMutableSet alloc] init];
-        _isSearching = NO;
+        _blocksToRunAfterUpdate = [[NSMutableArray alloc] init];
+        _isActive = NO;
 	}
 
 	return self;
@@ -64,6 +66,7 @@
 
     [_deviceNameToAttemptConnection release];
     [_blockToRunAfterConnection release];
+    [_blocksToRunAfterUpdate release];
 
     _serviceBrowser.delegate = nil;
     [_serviceBrowser stop];
@@ -78,26 +81,28 @@
 
 #pragma mark - public Methods
 
-- (void)start
+- (void)activate
 {
     if (!_serviceBrowser) {
         _serviceBrowser = [[NSNetServiceBrowser alloc] init];
         _serviceBrowser.delegate = self;
     }
 
-    if (_isSearching) {
-        NSLog(@"Already searching for AirPlay services");
+    if (_isActive) {
+        NSLog(@"Already active & monitoring AirPlay services");
     } else {
-        NSLog(@"Begin searching for AirPlay services");
-        _isSearching = YES;
+        NSLog(@"Activate & begin monitoring AirPlay services");
+        _isActive = YES;
         [_serviceBrowser searchForServicesOfType:@"_airplay._tcp" inDomain:@""];
     }
+
+    [self setIsUpdatingServices:YES];
 }
 
-- (void)stop
+- (void)deactivate
 {
-    if (_isSearching) {
-        _isSearching = NO;
+    if (_isActive) {
+        _isActive = NO;
         [_serviceBrowser stop];
         _isAddingServices = NO;
         _isRemovingServices = NO;
@@ -156,6 +161,19 @@
 - (NSArray *)devices
 {
     return [devices array];
+}
+
+- (void)runAfterCompletedUpdate:(void (^)(TherePlayManager *manager))block
+{
+    if (!block) {
+        return; // ignore nil
+    }
+
+    if ([self isUpdatingServices]) {
+        [_blocksToRunAfterUpdate addObject:block];
+    } else {
+        block(self);
+    }
 }
 
 - (void)attemptConnectionToDeviceWithName:(NSString *)name running:(void(^)(BOOL success))blockToRun
@@ -267,6 +285,8 @@
             [service resolveWithTimeout:20.0];
         }
     }
+
+
 }
 
 - (void)sendWillUpdateMessageIfNeeded
@@ -279,12 +299,24 @@
 
 - (void)sendDidUpdateMessageIfWarranted
 {
-    if (![_servicesToAdd count]) {
-        NSLog(@"%@ did update devices", NSStringFromClass([self class]));
-        if ([_delegate respondsToSelector:@selector(therePlayManagerDidUpdateDevices:)]) {
-            [_delegate therePlayManagerDidUpdateDevices:self];
-        }
+    // while there are still services to add, we cannot send declare as updated
+    if ([_servicesToAdd count]) {
+        return;
     }
+
+    NSLog(@"%@ did update devices", NSStringFromClass([self class]));
+    if ([_delegate respondsToSelector:@selector(therePlayManagerDidUpdateDevices:)]) {
+        [_delegate therePlayManagerDidUpdateDevices:self];
+    }
+
+    // One down side to not popping these as we go is that we are keeping references/memory that we don't need.
+    // One upside of doing the loop this way is that changes to _blocksToRun... that occur in the loop will throw
+    // an expeption; good thing if we want to avoid an inadvertant infinite loop.
+    void (^block)(TherePlayManager *);
+    for (block in _blocksToRunAfterUpdate) {
+        block(self);
+    }
+    [_blocksToRunAfterUpdate removeAllObjects];
 }
 
 - (TherePlayDevice *)existingDeviceForService:(NSNetService *)service
