@@ -73,10 +73,10 @@
     [_serviceBrowser release];
 
     [devices release];
-	[_servicesToAdd release];
-	[_servicesToRemove release];
+    [_servicesToAdd release];
+    [_servicesToRemove release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 #pragma mark - public Methods
@@ -254,7 +254,7 @@
 
     TherePlayDevice *device = nil;
 
-    for (NSNetService *service in _servicesToRemove) {
+    for (NSNetService *service in [_servicesToRemove allObjects]) {
         if ([_servicesToAdd containsObject:service]) {
             [_servicesToRemove removeObject:service];
         }
