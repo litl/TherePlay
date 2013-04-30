@@ -3,11 +3,62 @@
 #import "TherePlayDevice.h"
 #import "AsyncSocket.h"
 
+// +[NSNetService dictionaryFromTXTRecordData:] leaves the dict values as UTF8 NSData's,
+// rather than NSString's (It's a TXT record, right?). This goes that extra step.
+NSDictionary *DictionaryOfStringsFromTXTRecordData(NSData *TXTRecordData)
+{
+    NSMutableDictionary *newDict = [[[NSNetService dictionaryFromTXTRecordData:TXTRecordData] mutableCopy] autorelease];
+
+    [newDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *val = [NSString stringWithUTF8String:[(NSData *)obj bytes]];
+        newDict[key] = val;
+    }];
+
+    return [NSDictionary dictionaryWithDictionary:newDict];
+}
+
+// This was obtained by somebody else's rev-eng hoodoo, as per http://nto.github.io/AirPlay.html
+typedef struct {
+    unsigned int video:1;
+    unsigned int photo:1;
+    unsigned int videoFairPlay:1;
+    unsigned int videoVolumeControl:1;   // 4
+    unsigned int videoHTTPLiveStreams:1;
+    unsigned int slideshow:1;
+    unsigned int unknown1:1;
+    unsigned int mirroring:1;            // 8
+    unsigned int screenRotate:1;
+    unsigned int audio:1;
+    unsigned int unknown2:1;
+    unsigned int audioRedundant:1;       // 12
+    unsigned int FPSAPv2pt5_AES_GCM:1;
+    unsigned int photoCaching:1;
+} AirPlayFeatures;
+
+AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
+{
+    // allows you to set a bit field by assigning the number
+    union {
+        unsigned int number;
+        AirPlayFeatures features;
+    } converter;
+
+    NSScanner* scanner = [NSScanner scannerWithString:hexString];
+    [scanner scanHexInt:&(converter.number)];
+
+    return converter.features;
+}
+
+#pragma mark - TherePlayDevice
+
 @interface TherePlayDevice ()  <AsyncSocketDelegate> {
 @private
     BOOL okToSend;
     NSString *queuedMessage;
+    NSDictionary *TXTRecordDict; // keys & values are all NSString's; cf. DictionaryOfStringsFromTXTRecordData()
+    AirPlayFeatures features;
 }
+
 @end
 
 @implementation TherePlayDevice
@@ -30,6 +81,8 @@
         _service = [service retain];
         _hostname = [service.hostName retain];
         _port = service.port;
+
+        [self loadTXTRecord];
     }
 
     return self;
@@ -42,6 +95,7 @@
 	[_socket release];
     [_service release];
 	[_hostname release];
+    [TXTRecordDict release];
 
 	[super dealloc];
 }
@@ -66,7 +120,8 @@
 {
     NSMutableString *s = [[[[super description] stringByReplacingOccurrencesOfString:@">" withString:@""] mutableCopy]
                           autorelease];
-    [s appendFormat:@", %@>", _service];
+    [s appendFormat:@", %@,\n%@>", _service, TXTRecordDict
+     ];
     return s;
 }
 
@@ -154,6 +209,15 @@
 	"User-Agent: MediaControl/1.0\r\n\r\n";
 
 	[self sendRawData:[message dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (void)loadTXTRecord
+{
+    TXTRecordDict = [DictionaryOfStringsFromTXTRecordData([_service TXTRecordData]) retain];
+    features = AirPlayFeaturesFromNSString(TXTRecordDict[@"features"]);
+    BOOL requiresPassword = [TXTRecordDict[@"pw"] isEqualToString:@"1"];
+    _requiresOnscreenCode = [TXTRecordDict[@"pin"] isEqualToString:@"1"];
+    _requiresAuthentication = _requiresOnscreenCode || requiresPassword;
 }
 
 #pragma mark - AsyncSocketDelegate
