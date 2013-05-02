@@ -285,8 +285,6 @@
             [service resolveWithTimeout:20.0];
         }
     }
-
-
 }
 
 - (void)sendWillUpdateMessageIfNeeded
@@ -418,6 +416,20 @@
     if ([[_connectedDevice service] isEqual:sender]) {
         NSLog(@"%s for service %@", __PRETTY_FUNCTION__, sender);
         [self disconnectFromDevice:_connectedDevice];
+    }
+}
+
+- (void)netService:(NSNetService *)service didUpdateTXTRecordData:(NSData *)data
+{
+    TherePlayDevice *device = [self existingDeviceForService:service];
+
+    if (![[service TXTRecordData] isEqualToData:data]) {
+        // because this is a *did* method, this shouldn't happen, right?
+        NSLog(@"%s: update data != [service TXTRecordData]", __PRETTY_FUNCTION__);
+    }
+
+    if (device) {
+        [device loadTXTRecord];
     }
 }
 
