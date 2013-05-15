@@ -275,7 +275,7 @@
     // there are services to add.
     [self sendDidUpdateMessageIfWarranted];
 
-    for (NSNetService *service in _servicesToAdd) {
+    for (NSNetService *service in [_servicesToAdd allObjects]) {
         // skip services that are already attached to a device
         if ((device = [self existingDeviceForService:service])) {
             NSLog(@"service %@ already attached to device %@", service, device);
