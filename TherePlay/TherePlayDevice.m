@@ -10,8 +10,11 @@ NSDictionary *DictionaryOfStringsFromTXTRecordData(NSData *TXTRecordData)
     NSMutableDictionary *newDict = [[[NSNetService dictionaryFromTXTRecordData:TXTRecordData] mutableCopy] autorelease];
 
     [newDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *val = [NSString stringWithUTF8String:[(NSData *)obj bytes]];
-        newDict[key] = val;
+        // Avoiding a crash here by skipping NSNULL objs and empty NSData
+        if ([obj isKindOfClass:[NSData class]] && [(NSData *)obj bytes]) {
+            NSString *val = [NSString stringWithUTF8String:[(NSData *)obj bytes]];
+            newDict[key] = val;
+        }
     }];
 
     return [NSDictionary dictionaryWithDictionary:newDict];
