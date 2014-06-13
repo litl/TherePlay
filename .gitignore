@@ -1,5 +1,6 @@
 # Xcode noise
 *.xcworkspace/xcuserdata/*
+*.xcworkspace/xcshareddata/*.xccheckout
 **/*.xcworkspace/xcuserdata/*
 **/*.xcodeproj/xcuserdata/*
 **/*.xcodeproj/project.xcworkspace/*
