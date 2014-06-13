@@ -68,7 +68,7 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 
 #pragma mark - lifecycle & NSObject
 
-- (id)init
+- (instancetype)init
 {
 	if ((self = [super init])) {
 		_connected = NO;
@@ -78,7 +78,7 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 	return self;
 }
 
-- (id)initWithResolvedService:(NSNetService *)service
+- (instancetype)initWithResolvedService:(NSNetService *)service
 {
     if ((self = [self init])) {
         _service = [service retain];
@@ -156,12 +156,10 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 {
 	NSString *body = [[NSString alloc] initWithFormat:@"Content-Location: %@\r\n"
 														"Start-Position: 0\r\n\r\n", url];
-	int length = [body length];
-
-	NSString *message = [[NSString alloc] initWithFormat:@"POST /play HTTP/1.1\r\n"
-															 "Content-Length: %d\r\n"
-															 "User-Agent: MediaControl/1.0\r\n\r\n%@", length, body];
-
+	NSString *message = [[NSString alloc] initWithFormat:
+                         @"POST /play HTTP/1.1\r\n"
+                         "Content-Length: %ld\r\n"
+                         "User-Agent: MediaControl/1.0\r\n\r\n%@", (long)[body length], body];
 	[self sendRawMessage:message];
 
 	[body release];
@@ -180,10 +178,9 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 		okToSend = NO;
 
 		NSData *imageData = UIImageJPEGRepresentation(image, _imageQuality);
-		int length = [imageData length];
 		NSString *message = [[NSString alloc] initWithFormat:@"PUT /photo HTTP/1.1\r\n"
-							 "Content-Length: %d\r\n"
-							 "User-Agent: MediaControl/1.0\r\n\r\n", length];
+							 "Content-Length: %ld\r\n"
+							 "User-Agent: MediaControl/1.0\r\n\r\n", (long)[imageData length]];
 		NSMutableData *messageData = [[NSMutableData alloc] initWithData:[message dataUsingEncoding:NSUTF8StringEncoding]];
 		[messageData appendData:imageData];
 
@@ -204,7 +201,8 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 
 - (void)sendReverse
 {
-	NSString *message = @"POST /reverse HTTP/1.1\r\n"
+	NSString *message =
+    @"POST /reverse HTTP/1.1\r\n"
 	"Upgrade: PTTH/1.0\r\n"
 	"Connection: Upgrade\r\n"
 	"X-Apple-Purpose: event\r\n"

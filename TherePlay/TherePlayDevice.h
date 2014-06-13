@@ -35,7 +35,7 @@
 @property (nonatomic, retain) AsyncSocket *socket; // The socket used to transmit data. Only use for completely custom actions.
 @property (nonatomic) CGFloat imageQuality; // JPEG image quality for sending images. Defaults to 0.8;
 
-- (id)initWithResolvedService:(NSNetService *)service;
+- (instancetype)initWithResolvedService:(NSNetService *)service;
 - (void)loadTXTRecord;
 
 - (void)sendRawData:(NSData *)data;

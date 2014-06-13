@@ -42,7 +42,7 @@
 
 #pragma mark - lifecycle
 
-- (id)init
+- (instancetype)init
 {
 	if ((self = [super init])) {
 		self.autoConnect = NO;
@@ -385,7 +385,7 @@
 
 - (void)netServiceDidResolveAddress:(NSNetService *)service
 {
-	NSLog(@"Resolved service: %@:%d", service.hostName, service.port);
+	NSLog(@"Resolved service: %@:%ld", service.hostName, (long)service.port);
 
 	TherePlayDevice *device = [[[TherePlayDevice alloc] initWithResolvedService:service] autorelease];
     [devices addObject:device];
