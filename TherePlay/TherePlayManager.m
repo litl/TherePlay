@@ -42,7 +42,7 @@
 
 #pragma mark - lifecycle
 
-- (id)init
+- (instancetype)init
 {
 	if ((self = [super init])) {
 		self.autoConnect = NO;

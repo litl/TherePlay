@@ -68,7 +68,7 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 
 #pragma mark - lifecycle & NSObject
 
-- (id)init
+- (instancetype)init
 {
 	if ((self = [super init])) {
 		_connected = NO;
@@ -78,7 +78,7 @@ AirPlayFeatures AirPlayFeaturesFromNSString(NSString *hexString)
 	return self;
 }
 
-- (id)initWithResolvedService:(NSNetService *)service
+- (instancetype)initWithResolvedService:(NSNetService *)service
 {
     if ((self = [self init])) {
         _service = [service retain];
